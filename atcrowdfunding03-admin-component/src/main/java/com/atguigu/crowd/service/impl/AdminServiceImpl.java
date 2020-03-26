@@ -1,10 +1,12 @@
 package com.atguigu.crowd.service.impl;
 
 import com.atguigu.crowd.entity.Admin;
+import com.atguigu.crowd.entity.AdminExample;
 import com.atguigu.crowd.mapper.AdminMapper;
 import com.atguigu.crowd.service.api.AdminService;
 import org.aspectj.lang.annotation.SuppressAjWarnings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -12,17 +14,21 @@ import java.util.List;
  * @author swwan
  * @create 2020-03-26 17:43
  */
-public class AdminServiceImpl extends AdminService {
+@Service
+public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AdminMapper adminMapper;
 
-
     public void saveAdmin(Admin admin) {
+
+        adminMapper.insert(admin);
+
+        System.out.println(10/0);
 
     }
 
     public List<Admin> getAll() {
-        return null;
+        return adminMapper.selectByExample(new AdminExample());
     }
 }
