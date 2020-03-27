@@ -27,7 +27,33 @@
                 <!-- 标签体中写对应的视图（这个值要拼前后缀得到具体路径） -->
                 <prop key="java.lang.Exception">system-error</prop>
             </props>
-
         </property>
     </bean>
+
+    <!-- 配置view-controller，直接把请求地址和视图名称关联起来，不必写handler方法了 -->
+    <!--
+        @RequestMapping("/admin/to/login/page.html")
+        public String toLoginPage(){
+            return "admin-login";
+        }
+     -->
+    <mvc:view-controller path="/admin/to/login/page.html" view-name="admin-login"/>
+    <mvc:view-controller path="/admin/to/main/page.html" view-name="admin-main"/>
+
+    <!-- 配置基于 XML 的异常映射 -->
+    <bean id="SimpleMappingExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <!-- 指定异常类型和逻辑视图名称的对应关系 -->
+        <property name="exceptionMappings">
+            <props>
+                <!-- key 属性指定异常类型（全类名） -->
+                <!-- 文本标签体中指定异常对应的逻辑视图名称 -->
+                <prop key="java.lang.NullPointerException">system-error</prop>
+            </props>
+        </property>
+
+        <!-- 使用 exceptionAttribute 可以修改异常对象存入请求域时使用的属性名 -->
+        <!-- <property name="exceptionAttribute"></property> -->
+    </bean>
+
+
 </beans>
